@@ -40,7 +40,6 @@ exports.createBlogController = async (req, res) => {
       });
     }
     const exisitingUser = await userModel.findById(user);
-    //validaton
     if (!exisitingUser) {
       return res.status(404).send({
         success: false,
@@ -65,7 +64,7 @@ exports.createBlogController = async (req, res) => {
     console.log(error);
     return res.status(400).send({
       success: false,
-      message: "Error WHile Creting blog",
+      message: "Error WHile Creating blog",
       error,
     });
   }
@@ -129,6 +128,7 @@ exports.deleteBlogController = async (req, res) => {
       // .findOneAndDelete(req.params.id)
       .findByIdAndDelete(req.params.id)
       .populate("user");
+    console.log("delete blog ones",blog)
     await blog.user.blogs.pull(blog);
     await blog.user.save();
     return res.status(200).send({
@@ -139,7 +139,7 @@ exports.deleteBlogController = async (req, res) => {
     console.log(error);
     return res.status(400).send({
       success: false,
-      message: "Erorr WHile Deleteing BLog",
+      message: "Error WHile Deleting BLog",
       error,
     });
   }
@@ -149,7 +149,7 @@ exports.deleteBlogController = async (req, res) => {
 exports.userBlogControlller = async (req, res) => {
   try {
     const userBlog = await userModel.findById(req.params.id).populate("blogs");
-
+    
     if (!userBlog) {
       return res.status(404).send({
         success: false,

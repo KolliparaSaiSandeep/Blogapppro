@@ -39,6 +39,7 @@ exports.registerController = async (req, res) => {
   }
 };
 
+
 // get all users
 exports.getAllUsers = async (req, res) => {
   try {
@@ -87,14 +88,14 @@ exports.loginController = async (req, res) => {
     }
     return res.status(200).send({
       success: true,
-      messgae: "login successfully",
+      message: "login successfully",
       user,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
-      message: "Error In Login Callcback",
+      message: "Error In Login Callback",
       error,
     });
   }
